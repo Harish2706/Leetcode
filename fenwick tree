@@ -1,0 +1,41 @@
+//fenwick tree
+//prefix sum  precomputation - (n) ,l and r - (1)
+#include <bits/stdc++.h>
+using namespace std;
+//use index value set right most bit to 0 and add one for left side and for right side same as index value
+//index i  will store the sum between left and right
+
+//for updation ->logn ,short cut = i = i + (i&(-i))
+//1 2s compliment 2 & with original number and 3 add to original number
+//this is find the next update index
+//for 12 we should seperate sum(8)  + sum(4)
+//13 1101 turn of rightmost 1100 12 againsame 1000 8 and again we get 0 and stop
+//1 2s compliment 2 & with original number and 3 subract to original number
+
+int n;
+vector<int> fen;
+
+void update(int i, int add){
+    while(i <= n){
+        fen[i] += add;
+        i += (i & (-i));
+    }
+}
+
+int sum(int i){
+    int s = 0;
+    while(i > 0){
+        s += fen[i];
+        i -= (i & (-i));
+    }
+    return s;
+}
+
+int rangesum(int l, int r){
+    return sum(r) - sum(l-1);
+}
+
+int main() {
+
+
+}
